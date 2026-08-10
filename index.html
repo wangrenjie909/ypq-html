@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>凯里·欧文</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #87CEEB, #1e3a8a);
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: url('basketball.jpg') center / cover no-repeat;
+            z-index: -2;
+        }
+        .bg-jerseys {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .jersey {
+            position: absolute;
+            width: 90px;
+            height: 110px;
+            border-radius: 14px 14px 10px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+            opacity: 0.92;
+            transform: perspective(600px) rotateX(10deg) rotateZ(4deg);
+            box-shadow:
+                0 8px 0 rgba(0, 0, 0, 0.35),
+                0 14px 20px rgba(0, 0, 0, 0.3);
+        }
+        .jersey::before {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 16px;
+            border-radius: 0 0 50% 50%;
+            background: #fff;
+        }
+        .cavs { background: linear-gradient(180deg, #8f3352, #55202f); top: 20px; left: 20px; }
+        .celtics { background: linear-gradient(180deg, #0a8f44, #005a26); top: 20px; right: 20px; }
+        .nets { background: linear-gradient(180deg, #2a2a2a, #000); bottom: 20px; left: 20px; }
+        .mavericks { background: linear-gradient(180deg, #0a6cb8, #003b66); bottom: 20px; right: 20px; }
+    </style>
+</head>
+<body style="color: white; text-align: center;">
+    <div class="bg-jerseys">
+        <div class="jersey cavs">2</div>
+        <div class="jersey celtics">11</div>
+        <div class="jersey nets">11</div>
+        <div class="jersey mavericks">11</div>
+    </div>
+    <h1>⛹️ 凯里·欧文 🏀</h1>
+    <p>欢迎来到篮球世界！</p>
+    <p>汗水不会说谎。</p>
+    <p>我最喜欢的球星是：欧文！⛹️</p>
+    <p>欧文球衣号码：11 号！🔢</p>
+    <img src="kyrie.png" alt="凯里·欧文" width="300" style="display: block; margin: 0 auto;">
+    <p>🏀 欧文效力过的球队：骑士 → 凯尔特人 → 篮网 → 独行侠</p>
+    <img src="cavaliers.svg" alt="骑士" width="90" style="margin: 10px 15px;">
+    <img src="celtics.svg" alt="凯尔特人" width="90" style="margin: 10px 15px;">
+    <img src="nets.svg" alt="篮网" width="90" style="margin: 10px 15px;">
+    <img src="mavericks.svg" alt="独行侠" width="90" style="margin: 10px 15px;">
+</body>
+</html>
