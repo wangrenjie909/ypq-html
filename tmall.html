@@ -1,0 +1,50 @@
+
+
+<a id="a-link"></a>
+<script charset="utf-8" src="https://g.alicdn.com/mtb/lib-windvane/3.0.6/windvane.js" crossorigin></script>
+<script>
+  localStorage.x5referer = window.location.href;
+  var link = document.getElementById("a-link");
+  var isMobile = navigator.userAgent.match(/.*(iPhone|iPad|Android|ios|SymbianOS|Windows Phone).*/i);
+  var isHarmony = navigator.userAgent.match(/ArkWeb/i);
+  var host = (isMobile || isHarmony) ? "https://login.m.taobao.com/login.htm?from=sm&ttid=h5@iframe&redirectURL=" : "https://login.taobao.com/member/login.jhtml?redirectURL=";
+  try {
+	var hostValue = window.location.host;
+	var parts = hostValue && hostValue.split('.');
+	var exp = new Date();
+	var maxAge = -100;
+	exp.setTime(exp.getTime() + maxAge);
+	var cookie = 'x5secdata=;maxAge=' + maxAge + ';expires=' + exp.toUTCString() + ';path=/;domain=.' + parts.slice(-2).join('.') + ';';
+	document.cookie = cookie;
+	document.cookie = cookie + 'Secure;SameSite=None';
+  } catch(e) {}
+  var jump = "https%3a%2f%2fantaofficial.tmall.com:443/search.htm%2F_____tmd_____%2Fpage%2Flogin_jump%3Frand%3DS3WxGHAgAt756EpznwfNzJq2AFA2qBNla3j6EINUS8We9dazM_iKElp8DwVSHZUevpC41Bx7RzivXIj9RnZgdg%26_lgt_%3D013b20694364617fdf3694a058744f2a___220409___8c49c3115d0f23fc0fae2fb59c44b7d5___eaebc79cac1eb5d2f7d8b4595e00ec73344a42d5a0b8cf56539c823cd24ac06c4d21058431ad70e45dea6b2fa0159a4c2d0a6d16055bf2b9daf604640c9df926edab6949f99c3ed45a5b7ae882a6398d36bcd2c97d15a129973c9575dead2965f30d05b945a6f833c995602b2cac735445c409a1bd8d83f0f1917a93a9ddc72bcf69b43df9d2bf64d2ed7dd91894c71ce678fa7bb3dd0a2e4529713eb2555f8d4947a01f65db828f5a70cc62d4f5a53c3faf81fbc3eb96d746f5cfb4ae605e58098f6c7a0cf603fdecf38520bb00ed7a9ecfa26f441571ef212c35a64e4d3f7bc60f3ed671f24beb5a40be1d4ae55f8849d6094c3608112cea1c00ba61ff3595351ae0e98b64b8b73a97e6c271802bf73d4a43213597d5e2249ec2536825bd75918316a8d62033b9ebf7b284e2a36b48%26uuid%3D013b20694364617fdf3694a058744f2a";
+  link.href = host + jump;
+  if (window.themis && window.WindVane && !isHarmony) {
+    window.WindVane.call('aluWVJSBridge', 'sdkLogin', {}, function(e) {
+  		window.addEventListener('pageshow', function(event) {
+        	if (event.persisted) {
+  				localStorage.x5referer = "";
+          		window.location.reload();
+        	}
+        });
+  		window.location.href = decodeURIComponent(jump);
+  	}, function(e) {
+  		console.log(e);
+  		history.go(-1);
+		setTimeout(function(){
+  			window.WindVane.call('WebAppInterface', 'pop', {}, function(e) {
+            }, function (e) {});
+  		}, 100);
+  	});
+  } else {
+  	link.click();
+  }
+ window._config_ = {
+   "action": "login",
+   "url": "https://login.taobao.com/member/login.jhtml?style=mini&newMini2=true&from=sm&full_redirect=false&redirectURL=https%3a%2f%2fantaofficial.tmall.com:443/search.htm%2F_____tmd_____%2Fpage%2Fclose_iframe_page%3Frand%3DS3WxGHAgAt756EpznwfNzJq2AFA2qBNla3j6EINUS8We9dazM_iKElp8DwVSHZUevpC41Bx7RzivXIj9RnZgdg%26uuid%3D013b20694364617fdf3694a058744f2a%26_lgt_%3D013b20694364617fdf3694a058744f2a___220409___8c49c3115d0f23fc0fae2fb59c44b7d5___eaebc79cac1eb5d2f7d8b4595e00ec73344a42d5a0b8cf56539c823cd24ac06c4d21058431ad70e45dea6b2fa0159a4c2d0a6d16055bf2b9daf604640c9df926edab6949f99c3ed45a5b7ae882a6398d36bcd2c97d15a129973c9575dead2965f30d05b945a6f833c995602b2cac735445c409a1bd8d83f0f1917a93a9ddc72bcf69b43df9d2bf64d2ed7dd91894c71ce678fa7bb3dd0a2e4529713eb2555f8d4947a01f65db828f5a70cc62d4f5a53c3faf81fbc3eb96d746f5cfb4ae605e58098f6c7a0cf603fdecf38520bb00ed7a9ecfa26f441571ef212c35a64e4d3f7bc60f3ed671f24beb5a40be1d4ae55f8849d6094c3608112cea1c00ba61ff3595351ae0e98b64b8b73a97e6c271802bf73d4a43213597d5e2249ec2536825bd75918316a8d62033b9ebf7b284e2a36b48",
+   "h5url": "https://login.m.taobao.com/login.htm?from=sm&ttid=h5@iframe&redirectURL=https%3a%2f%2fantaofficial.tmall.com:443/search.htm%2F_____tmd_____%2Fpage%2Fclose_iframe_page%3Frand%3DS3WxGHAgAt756EpznwfNzJq2AFA2qBNla3j6EINUS8We9dazM_iKElp8DwVSHZUevpC41Bx7RzivXIj9RnZgdg%26uuid%3D013b20694364617fdf3694a058744f2a%26_lgt_%3D013b20694364617fdf3694a058744f2a___220409___8c49c3115d0f23fc0fae2fb59c44b7d5___eaebc79cac1eb5d2f7d8b4595e00ec73344a42d5a0b8cf56539c823cd24ac06c4d21058431ad70e45dea6b2fa0159a4c2d0a6d16055bf2b9daf604640c9df926edab6949f99c3ed45a5b7ae882a6398d36bcd2c97d15a129973c9575dead2965f30d05b945a6f833c995602b2cac735445c409a1bd8d83f0f1917a93a9ddc72bcf69b43df9d2bf64d2ed7dd91894c71ce678fa7bb3dd0a2e4529713eb2555f8d4947a01f65db828f5a70cc62d4f5a53c3faf81fbc3eb96d746f5cfb4ae605e58098f6c7a0cf603fdecf38520bb00ed7a9ecfa26f441571ef212c35a64e4d3f7bc60f3ed671f24beb5a40be1d4ae55f8849d6094c3608112cea1c00ba61ff3595351ae0e98b64b8b73a97e6c271802bf73d4a43213597d5e2249ec2536825bd75918316a8d62033b9ebf7b284e2a36b48",
+   "dialogSize": {"width": "", "height": ""}
+};
+</script>
+<!--rgv587_flag:sm-->

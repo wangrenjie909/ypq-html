@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>【安踏官方商城】-永不止步Keep Moving</title>
+<meta name="keywords" content="安踏,安踏官方网站,安踏官方旗舰店,安踏官网专卖店,安踏官方商城,安踏官方网站专卖店,安踏专卖店,安踏官网,男鞋,女鞋,运动鞋,篮球鞋,跑鞋,anta" >
+<meta name="description" content="安踏官方旗舰店，安踏官方商城,提供ANTA男鞋,女鞋,运动鞋,休闲鞋,篮球鞋,跑鞋,综训鞋；提供最好的商品,最优质的服务,7天无条件退换货,正品保证!" >
+<meta name="baidu-site-verification" content="QboEbNprz3" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link rel="dns-prefetch" href="https://img.fishfay.com/">
+<link rel="dns-prefetch" href="http://hm.baidu.com/">
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta http-equiv="Cache-Control" content="no-transform"/>
+<link type="text/css" href="https://img.fishfay.com/theme/pc/style/style.css?v1695868539368" rel="stylesheet">
+<link type="text/css" href="https://img.fishfay.com/theme/pc/style/common.css?v20100913461" type="text/css" rel="stylesheet">
+<script language="javascript">
+	var u = navigator.userAgent;
+	if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1
+			|| u.indexOf('Windows Phone') > -1 || u.indexOf('iPhone') > -1
+			|| u.indexOf('iPad') > -1) {
+			window.location.href ='/m/index';
+
+	}
+</script>
+
+<link href="https://img.fishfay.com/theme/pc/style/swiper.min.css" type="text/css" rel="stylesheet"> 
+<link href="https://img.fishfay.com/theme/pc/style/index.css??v202111011708" type="text/css" rel="stylesheet">
+</head>
+<body class="scroll">
+		<header id="mall_header" class="header w-full J_header" v-clock>
+		<div class="header-top w-full clearfix" >
+			<div class="header-topbar fr">
+				<div class="topbar-user">
+					<template v-if="isLogin==false">
+					<a :href="url.path_login" title="登入">登入</a>&nbsp;或&nbsp;<a :href="url.path_reg" title="注册">注册</a>&nbsp;ANTA会员
+					</template>
+					<a v-else-if="isLogin==true" :href="url.path_center" target="_blank">你好！{{username}}</a>
+				</div>
+				<div :class="'topbar-cart '+(cartNum!=0?'notempty':'')">
+					<a :href="url.path_tcart" class="topbar-icon" title="购物车"></a><i>{{cartNum!=0?cartNum:''}}</i>
+				</div>
+				<div class="topbar-service" style="margin-right:30px">
+					<a href="javascript:;" class="topbar-icon" @click="openkefu()" title="在线客服"></a>
+				</div>
+				<div class="topbar-en"><a href="/english/aboutanta" class="topbar-icon">EN</a></div>
+			</div>
+		</div>	
+		<div class="header-nav w-full clearfix">
+			<div class="header-logo fl J_head_logo">
+				<div class="logo-inner">
+					<a href="/"><img src="https://img.fishfay.com/theme/images/logo/logo-anta-r-02.svg" alt=""></a>
+				</div>
+			</div>
+			<ul class="nav-list fr">			
+				<template v-for="(item,index) in navList" >
+					<li v-if="item.url && item.title" 
+						:class="'nav-item'+(index==0?' first':'')+(item.hover?' hover':'')+(pageType && pageType==item.type?' current':'')" 
+						:data-type="item.type" @mouseover="hoverNavItem(index,true)" @mouseleave="hoverNavItem(index,false)">
+						<a :href="item.url" target="_blank" :title="item.title">{{item.title}}</a>
+						<div v-if="item.list && item.list.length>0 && item.hover==true" class="sub-nav-panel">
+							<div class="w-1920 scroll">
+								<div class="sub-nav-inner clearfix">
+									<template v-for="(it2,idx2) in item.list" >										
+										<div v-if="it2.type=='new'" :class="'sub-nav-item sub-newtag '+(idx2==0?'first':'')">
+											<ul v-if="it2.subs" class="newtag-list">
+												<template v-for="it3 in it2.subs" >	
+													<li v-if="it3.title" :class="it3.isNews && it3.isNews==true?'icon-new':''">
+														<a :href="it3.url!=''?it3.url:'javascript:;'" :target="it3.url!=''?'_blank':'_self'">
+															<img v-if="it3.pic!=''" :src="it3.pic" :alt="it3.title">
+															<template v-else>{{it3.title}}</template>															
+														</a>
+													</li>
+												</template>
+											</ul>
+										</div>
+										<div v-else-if="it2.type=='hot'" :class="'sub-nav-item sub-hot '+(idx2==0?'first':'')">
+											<div :class="'hot-title '+(it2.isNews?'':'no-')+'icon-new'">
+												<a :href="it2.url!=''?it2.url:'javascript:;'" :target="it2.url!=''?'_blank':'_self'">{{it2.title}}</a>
+											</div>
+											<ul v-if="it2.subs" class="hot-list">
+												<template v-for="it3 in it2.subs" >	
+												<li v-if="it3.title && it3.pic">
+													<a :href="it3.url!=''?it3.url:'javascript:;'" :target="it3.url!=''?'_blank':'_self'">
+													<img :src="it3.pic">
+													<span>{{it3.title}}</span>
+													</a>
+												</li>
+												</template>
+											</ul>
+										</div>
+										<div v-else :class="'sub-nav-item '+(idx2==0?'first':'')">
+											<div class="cate-title">
+												<a :href="it2.url!=''?it2.url:'javascript:;'" :target="it2.url!=''?'_blank':'_self'">{{it2.title}}</a>
+											</div>
+											<div class="cate-box clearfix">
+												<ul v-if="it2.subs" class="cate-list fl">
+													<template v-for="it3 in it2.subs" >	
+														<li v-if="it3.url && it3.title"><a :href="it3.url" target="_blank">{{it3.title}}</a></li>
+													</template>
+												</ul>
+												<ul v-if="it2.subs2" class="cate-list fl">
+													<template v-for="it3 in it2.subs2" >	
+														<li v-if="it3.url && it3.title"><a :href="it3.url" target="_blank">{{it3.title}}</a></li>
+													</template>
+												</ul>
+											</div>
+										</div>										
+									</template>
+								</div>
+							</div>
+						</div>
+					</li>
+				</template>
+				<li class="nav-item last">
+					<div class="nav-search-box">
+						<a class="nav-search-btn" href="javascript:;" @click="searchWords" title="搜索"></a>
+						<input class="nav-search-input" type="text" v-model="keyword" :placeholder="placeholder" @keyup.enter="searchWords" autocomplete="off" value id="search_box" promptvalue="" >
+					</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div class="main-container J_minicart_close">
+		<div class="page-container" v-clock>
+				<template v-for="(item,index) in page" >
+			<div v-if="item.type=='swiper' && item.list.length>0" :style="item.style" class="model-box model-swiper">
+				<div class="swiper-container model-swiper-container">
+					<div class="swiper-wrapper">
+						<template v-for="(it2,idx2) in item.list">
+						<div v-if="it2.pic!=''" class="swiper-slide">
+							<a v-if="it2.url!=''" :href="it2.url" target="_blank"><img class="loading" :original="it2.pic" alt=""></a>
+							<a v-else href="javascript:;"><img class="loading" :original="it2.pic" alt=""></a>
+						</div>
+						</template>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+			</div>
+			<div :id="item.anchorId" v-if="item.type=='custom' && item.list.length>0 && item.list[0].pic!=''" :style="item.style"
+				:class="('model-box model-custom ') + (item.isCover==true || item.isCover=='true'?'cover ':'') + (item.isConcave==true || item.isConcave=='true'?'concave ':'')">
+				<div class="custom-box">
+					<img class="loading" :original="item.list[0].pic" alt="">
+					<div v-if="item.links.length>0" class="custom-links">
+						<template v-for="(it2,idx2) in item.links">
+							<a v-if="it2.newUrl!='' && it2.urlType=='coupon'" href="javascript:;" @click="getCoupon(it2.newUrl)" :style="'width:'+it2.width+'%;height:'+it2.height+'%;top:'+it2.top+'%;left:'+it2.left+'%;'"></a>
+							<a v-else-if="it2.newUrl!=''" :href="it2.newUrl" target="_blank" :style="'width:'+it2.width+'%;height:'+it2.height+'%;top:'+it2.top+'%;left:'+it2.left+'%;'"></a>
+						</template>
+					</div>
+				</div>
+			</div>
+			<div v-if="item.type=='goods' && item.goodsSn !=''" :style="item.style"
+			 :class="'model-box model-goods '+(item.bgType==2?'model-goods-w ':'') + (item.bgType==3?'model-goods-gw ':'')">
+				<template v-if="item.bgType==1 || item.bgType==2">
+				<h3 v-if="(item.titleInfo.type=='text' && item.titleInfo.text!='') || (item.titleInfo.type=='pic' && item.titleInfo.pic!='')" class="goods-title clearfix">
+					<span class="title-main fr">
+						<i v-if="item.titleInfo.type=='text' && item.titleInfo.text!=''" :style="item.titleInfo.color!=''?'color:'+item.titleInfo.color:''">{{item.titleInfo.text}}</i>
+						<img v-if="item.titleInfo.type=='pic' && item.titleInfo.pic!=''" :src="item.titleInfo.pic" alt=""></span>
+					</span>
+					<span class="title-something fr"></span>
+				</h3>
+				</template>
+				<template v-if="item.bgType==3">
+				<h3 v-if="(item.titleInfo.type=='text' && item.titleInfo.text!='') || (item.titleInfo.type=='pic' && item.titleInfo.pic!='') || (item.moreInfo.text!='' && item.moreInfo.url!='')" class="goods-title">
+					<span class="title-main">
+						<i v-if="item.titleInfo.type=='text' && item.titleInfo.text!=''" :style="item.titleInfo.color!=''?'color:'+item.titleInfo.color:''">{{item.titleInfo.text}}</i>
+						<img v-if="item.titleInfo.type=='pic' && item.titleInfo.pic!=''" :src="item.titleInfo.pic" alt=""></span>
+					</span>
+					<a v-if="item.moreInfo.text!='' && item.moreInfo.url!=''" class="goods-more" :href="item.moreInfo.url" target="_blank">{{item.moreInfo.text}}</a>
+				</h3>
+				</template>
+				<div class="goods-box" v-if="item.adsInfo.type!='n' || item.goodsSn!=''">
+					<ul class="goods-list clearfix">
+						<li v-if="item.adsInfo.type!='n' && item.adsInfo.pic!=''" class="goods-ads "
+							:class="'goods-ads-'+item.adsInfo.type">
+							<a v-if="item.adsInfo.url!=''" :href="item.adsInfo.url" target="_blank"><img :src="item.adsInfo.pic" alt=""></a>
+							<a v-else href="javascript:;"><img :src="item.adsInfo.pic" alt=""></a>
+						</li>
+						<li v-for="(it2,idx2) in item.goodsList" :class="'goods-item J_goods_item '+(it2.hover?'hover':'')"
+							@mouseover="hoverGoodsItem(index,idx2,true,$event)" @mouseleave="hoverGoodsItem(index,idx2,false,$event)">
+							<div class="goods-body">
+								<a class="goods-pic" target="_blank" :href="it2.info.url" :data="it2.info.image+'?x-image-process=image/resize,w_300,h_300'">
+									<img class="loading J_goods_img" :original="it2.info.image+'?x-image-process=image/resize,w_300,h_300'" alt="">
+								</a>
+								<a class="goods-name ellipsis" target="_blank" :href="it2.info.url">{{it2.info.pro_title}}</a>
+								<!-- <a class="goods-desc ellipsis" target="_blank" :href="it2.info.url">{{it2.info.pro_info}}</a> -->
+								<div :class="'goods-thumbs J_goods_thumbs '+(it2.child.length>5?'more':'')">
+									<a class="thumbs-btn prev" href="javascript:;" @click="clickGoodsThumb(index,idx2,1,$event)"></a>
+									<ul class="thumbs-list J_thumbs_list">
+										<li v-for="(it3,idx3) in it2.child" :class="idx3<it2.startIdx || idx3>=it2.startIdx+5?'hide':''"
+											@mouseover="hoverGoodsThumb(index,idx2,idx3,true,$event)" @mouseleave="hoverGoodsThumb(index,idx2,idx3,false,$event)">
+											<a target="_blank" :href="it3.url">
+												<img class="'colorimg loading" :original="it3.image.small+'?x-image-process=image/resize,w_50,h_50'" :data="it3.image.normal+'?x-image-process=image/resize,w_300,h_300'" :alt="it3.info" :title="it3.info">
+											</a>
+										</li>
+									</ul>
+									<a class="thumbs-btn next" href="javascript:;" @click="clickGoodsThumb(index,idx2,2,$event)"></a>
+								</div>
+								<a class="goods-price" target="_blank" :href="it2.info.url">
+									<span>￥{{it2.info.price}}</span><span class="mkt-price">￥{{it2.info.market_price}}</span>
+								</a>
+							</div>
+						</li>
+					</ul>
+					<div v-if="(item.bgType==1 || item.bgType==2) && item.moreInfo.text!='' && item.moreInfo.url!=''" class="goods-lines"><a class="goods-more" :href="item.moreInfo.url" target="_blank">{{item.moreInfo.text}}</a></div>
+				</div>
+			</div>
+			<div v-if="item.type=='swiperGoods' && item.goodsList.length>0" :style="item.style" class="model-box model-swiperGoods autoWidth">
+				<div class="swiperGoods-infos">
+					<h3 v-if="item.title!=''">{{item.title}}</h3>
+					<p v-if="item.desc!=''">{{item.desc}}</p>
+					<a v-if="item.btnInfo.text!='' && item.btnInfo.url!=''" :href="item.btnInfo.url" target="_blank">{{item.btnInfo.text}}</a>
+				</div>
+				<div v-if="item.goodsList.length>0" class="swiper-container swiperGoods-list">
+					<div class="swiper-wrapper">
+						<div v-for="(it2,idx2) in item.goodsList" class="swiper-slide">
+							<a v-if="it2.url!='' && it2.pic!=''" :href="it2.url" target="_blank" :title="it2.name!=''?it2.name:''">
+								<img :src="it2.pic" alt="">
+								<span v-if="it2.name!=''">{{it2.name}}</span>
+							</a>
+						</div>
+					</div>
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+				</div>
+			</div>
+			<div v-if="item.type=='cate' && (item.cateTitle!='' || item.cateList.length>0)" :style="item.style" class="model-cate">
+				<h2 v-if="item.cateTitle!=''" class="model-cate-title"><img :src="item.cateTitle" alt=""></h2>
+				<ul v-if="item.cateList.length>0" class="model-cate-list">
+					<template v-for="(it2,idx2) in item.cateList">
+					<li v-if="it2.name!='' && it2.url!=''" :class="it2.isNewIcon==true || it2.isNewIcon=='true'?'new':''">
+						<a v-if="it2.url && /^#/.test(it2.url)" :href="it2.url">
+							<h4>{{it2.name}}</h4>
+							<p v-if="it2.sub && it2.sub!=''">{{it2.sub}}</p>
+						</a>
+                        <a v-else :href="it2.url" target="_blank">
+							<h4>{{it2.name}}</h4>
+							<p v-if="it2.sub && it2.sub!=''">{{it2.sub}}</p>
+						</a>
+					</li>
+					</template>
+				</ul>
+			</div>
+			<div v-if="item.type=='accordion' && item.list.length>0" :style="item.style" class="model-box model-accordion autoWidth">
+				<ul class="accordion-list clearfix">
+					<template v-for="(it2,idx2) in item.list">
+					<li v-if="it2.pic!=''" :class="'accordion-item '+(idx2==item.current?'active':'')"  @click="idx2==item.current?'':changeAccordion(index,idx2)">
+						<div class="accordion-body">
+							<a v-if="it2.url!=''" :href="it2.url" target="_blank"><img class="loading" :original="it2.pic" alt=""></a>
+							<a v-else href="javascript:;"><img class="loading" :original="it2.pic" alt=""></a>
+						</div>
+						<div class="accordion-cover"></div>
+					</li>
+					</template>
+				</ul>
+			</div>
+			<div v-if="item.type=='hoverup' && item.list.length>0 && item.list[0].pic!=''" :style="item.style" class="model-box model-hoverup">
+				<div class="hoverup-box">
+					<img class="loading" :original="item.list[0].pic" alt="">
+					<div v-if="item.person.length>0" class="hoverup-inner clearfix" style="padding-top:50px">
+						<template v-for="(it2,idx2) in item.person">
+						<a :href="(it2.url!=''?it2.url:'javascript:;')" class="hoverup-item">
+							<img class="hoverup-bg loading" :original="it2.pic" alt="">
+							<div class="hover-main">
+								<img class="hoverup-cover" :src="it2.cover" alt="">
+							</div>
+						</a>
+						</template>
+					</div>
+				</div>
+			</div>
+		</template>
+		<div class="main-ft">
+			<div class="main-ft-inner">
+				<h3 class="main-ft-title"></h3>
+				<p>抢先得知最新产品、独家消息及优惠资讯</p>
+				<ul class="main-ft-links">
+					<li class="main-ft-weixin"><a href="javascript:;"><div class="com-qr-code"><img src="https://img.fishfay.com/theme/images/antacom/com-qr-code.jpg?t=1742884113990" alt=""></div></a></li>
+					<li class="main-ft-weibo"><a href="http://weibo.com/anta" target="_blank"></a></li>
+				</ul>
+			</div>
+		</div>
+
+			<div v-if="agree===false" class="agree-cover flex-center">
+				<div class="agree-cover-box scroll">
+					<h3 class="agree-cover-title">个人信息保护政策</h3>
+					<p>感谢您对Anta一直以来的信任！为了在保护您的个人信息安全的同时更好地在为您提供服务，我们根据最新的法律法规的要求更新了《个人信息保护政策》。请您务必仔细阅读，并在充分理解和确认同意接受该《个人信息保护政策》后，点击以下确认按钮。</p>
+					<p style="text-indent: 1em;">我们将严格按照您同意的《个人信息保护政策》中的各项条款使用和保护您的个人信息。若您不同意更新的《个人信息保护政策》，可能将无法继续使用我们的服务或功能，但我们仍会在法律法规允许的范围内根据旧版《个人信息保护政策》为您提供部分服务和功能。</p>
+					<p style="text-indent: 1em;">详细信息请阅读Anta<a :href="url.path_agree" target="_blank">《个人信息保护政策》</a></p>
+					<div class="agree-cover-btn flex-center">
+						<a href="javascript:;" @click="closeAgree">不同意</a>
+						<a class="agree-cover-btn__confirm" href="javascript:;" @click="updateAgree">同意</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<footer id="mall_footer" :class="'footer '+(hostType=='com'?'footer-com':'footer-cn')+' w-full J_minicart_close'" v-clock>
+		<div class="ft-inner w-1280 clearfix">
+			<div class="ft-slogan fl"><img src="https://img.fishfay.com/theme/images/logo/slogan-anta-r.svg" alt=""></div>
+			<div v-if="hostType=='com'" class="ft-main fr">
+				<ul class="links-line">
+					<li><a href="/english/aboutanta" target="_blank">安踏海外</a></li>
+					<li><a href="http://ir.anta.com/" target="_blank">安踏投资者关系</a></li>
+					<li><a href="http://esg.anta.com" target="_blank">安踏可持续发展</a></li>
+				</ul>
+				<div class="ft-company" style="height:auto">
+					<span v-if="copyright">{{copyright.en}}</span>
+					<span v-if="copyright">{{copyright.zh}}</span>
+					<a v-if="busLicense && busLicense.name" target="_blank" :href="busLicense.link">{{busLicense.name}}</a>
+					<a v-if="openPermit && openPermit.name" target="_blank" :href="openPermit.link">{{openPermit.name}}</a>
+					<br>
+					<a v-if="icp && icp.name" target="_blank" :href="icp.link">{{icp.name}}</a>
+					<a v-if="safe && safe.name" target="_blank" :href="safe.link">{{safe.name}}</a>
+				</div>
+				<ul class="links-line">
+					<li><a href="/antakids/introduction" target="_blank">安踏儿童</a></li>
+					<li><a href="http://www.fila.cn/" target="_blank">Fila</a></li>
+					<li><a href="https://www.kolonsport.com.cn/" target="_blank">Kolon Sport</a></li>
+					<li><a href="https://www.descente-china.com.cn/" target="_blank">Descente</a></li>
+					<li><a href="javascript:;">Sprandi</a></li>
+				</ul>
+			</div>
+			<div v-else class="ft-main fr clearfix">
+				<div class="custom-service first fl">
+					<h4 class="server-btn" @click="openkefu">在线客服<span class="server-icon"></span></h4>
+					<h4>在线咨询<span class="server-tel">400-858-2020</span></h4>					
+				</div>
+				<div class="custom-service fl">
+					<a class="weixin-code" href="javascript:;"></a>
+				</div>
+				<div class="ft-company fl" style="height:auto">
+					<span v-if="copyright">{{copyright.en}}</span>
+					<span v-if="copyright">{{copyright.zh}}</span>
+					<a v-if="busLicense && busLicense.name" target="_blank" :href="busLicense.link">{{busLicense.name}}</a>
+					<a v-if="openPermit && openPermit.name" target="_blank" :href="openPermit.link">{{openPermit.name}}</a>
+					<a href="javascript:showAgreement('', 'footer')">个人信息保护政策</a>
+					<a href="javascript:showAgreement('anta_official_rules', 'footer')">安踏官方商城使用规则</a>
+					<br>
+					<a v-if="icp && icp.name" target="_blank" :href="icp.link">{{icp.name}}</a>
+					<a v-if="safe && safe.name" target="_blank" :href="safe.link">{{safe.name}}</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div id="web-cover" class="web-covers J_minicart_close" v-clock>
+		<div class="cover-top goto-top" @click="gotoTop" title="返回顶部"></div>
+		<a class="cover-cart" :href="url.path_tcart" title="购物车"></a>
+		<a class="cover-kefu" href="javascript:;" @click="openkefu" title="在线客服"></a>
+	</div>
+	<script type="text/javascript">var page_id='a';</script>
+	<script type="text/javascript">
+	try {
+		if (self != top&&top.location.href==self.location.href){
+			top.location=this.location.href;
+		}
+	}catch (e) {}
+	var _ozuid = '';
+	var _hmt = _hmt || [];
+	if(location.host=='www.anta.com'){
+		var hmkey='3f1c198435ca184800af888ebe1a0dc3';
+	}else{
+		var hmkey='da161d8f61f938ec4aaa98a3a7075e6d'
+	}
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "//hm.baidu.com/hm.js?"+hmkey;
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/vue.min.js"></script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/passport.agreement.js?v1697103945464"></script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/mall.common_v20260401.js?v1775718476574"></script>
+
+	<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/swiper.min.js"></script>
+	<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/jquery.scrollLoading.js"></script>
+	<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/mall.index_v211101.js"></script>
+</body>
+</html>

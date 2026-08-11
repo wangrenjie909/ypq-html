@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>【安踏官方商城】-永不止步Keep Moving</title>
+<meta name="keywords" content="安踏,安踏官方网站,安踏官方旗舰店,安踏官网专卖店,安踏官方商城,安踏官方网站专卖店,安踏专卖店,安踏官网,男鞋,女鞋,运动鞋,篮球鞋,跑鞋,anta" >
+<meta name="description" content="安踏官方旗舰店，安踏官方商城,提供ANTA男鞋,女鞋,运动鞋,休闲鞋,篮球鞋,跑鞋,综训鞋；提供最好的商品,最优质的服务,7天无条件退换货,正品保证!" >
+<meta name="baidu-site-verification" content="QboEbNprz3" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link rel="dns-prefetch" href="https://img.fishfay.com/">
+<link rel="dns-prefetch" href="http://hm.baidu.com/">
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta http-equiv="Cache-Control" content="no-transform"/>
+<link type="text/css" href="https://img.fishfay.com/theme/pc/style/style.css?v1695868539368" rel="stylesheet">
+<link type="text/css" href="https://img.fishfay.com/theme/pc/style/common.css?v20100913461" type="text/css" rel="stylesheet">
+<script language="javascript">
+	var u = navigator.userAgent;
+	if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1
+			|| u.indexOf('Windows Phone') > -1 || u.indexOf('iPhone') > -1
+			|| u.indexOf('iPad') > -1) {
+			window.location.href ='/m/index';
+
+	}
+</script>
+
+<style type="text/css">
+.main-container {background: #fff;}
+.error-container{width: 1000px;margin: 0 auto;}
+.error-img,
+.error-msg.error-msg-404 {float: left;width:500px}
+.error-img img {padding: 30px 0;}
+.system-message {border-left: 1px solid #ccc;padding-left: 20px;min-height: 235px;padding-top: 30px;padding-bottom: 30px;box-sizing: border-box;}
+.system-message p {font-size: 14px;line-height: 25px;color: #000;font-weight: normal;}
+.system-message p a{text-decoration: underline;color: #000;}
+.system-message .error{font-size: 34px;color: #000;padding: 20px 0;line-height: 30px;font-weight: bold;}
+</style>
+</head>
+<body class="scroll">
+		<header id="mall_header" class="header w-full J_header" v-clock>
+		<div class="header-top w-full clearfix" >
+			<div class="header-topbar fr">
+				<div class="topbar-user">
+					<template v-if="isLogin==false">
+					<a :href="url.path_login" title="登入">登入</a>&nbsp;或&nbsp;<a :href="url.path_reg" title="注册">注册</a>&nbsp;ANTA会员
+					</template>
+					<a v-else-if="isLogin==true" :href="url.path_center" target="_blank">你好！{{username}}</a>
+				</div>
+				<div :class="'topbar-cart '+(cartNum!=0?'notempty':'')">
+					<a :href="url.path_tcart" class="topbar-icon" title="购物车"></a><i>{{cartNum!=0?cartNum:''}}</i>
+				</div>
+				<div class="topbar-service" style="margin-right:30px">
+					<a href="javascript:;" class="topbar-icon" @click="openkefu()" title="在线客服"></a>
+				</div>
+				<div class="topbar-en"><a href="/english/aboutanta" class="topbar-icon">EN</a></div>
+			</div>
+		</div>	
+		<div class="header-nav w-full clearfix">
+			<div class="header-logo fl J_head_logo">
+				<div class="logo-inner">
+					<a href="/"><img src="https://img.fishfay.com/theme/images/logo/logo-anta-r-02.svg" alt=""></a>
+				</div>
+			</div>
+			<ul class="nav-list fr">			
+				<template v-for="(item,index) in navList" >
+					<li v-if="item.url && item.title" 
+						:class="'nav-item'+(index==0?' first':'')+(item.hover?' hover':'')+(pageType && pageType==item.type?' current':'')" 
+						:data-type="item.type" @mouseover="hoverNavItem(index,true)" @mouseleave="hoverNavItem(index,false)">
+						<a :href="item.url" target="_blank" :title="item.title">{{item.title}}</a>
+						<div v-if="item.list && item.list.length>0 && item.hover==true" class="sub-nav-panel">
+							<div class="w-1920 scroll">
+								<div class="sub-nav-inner clearfix">
+									<template v-for="(it2,idx2) in item.list" >										
+										<div v-if="it2.type=='new'" :class="'sub-nav-item sub-newtag '+(idx2==0?'first':'')">
+											<ul v-if="it2.subs" class="newtag-list">
+												<template v-for="it3 in it2.subs" >	
+													<li v-if="it3.title" :class="it3.isNews && it3.isNews==true?'icon-new':''">
+														<a :href="it3.url!=''?it3.url:'javascript:;'" :target="it3.url!=''?'_blank':'_self'">
+															<img v-if="it3.pic!=''" :src="it3.pic" :alt="it3.title">
+															<template v-else>{{it3.title}}</template>															
+														</a>
+													</li>
+												</template>
+											</ul>
+										</div>
+										<div v-else-if="it2.type=='hot'" :class="'sub-nav-item sub-hot '+(idx2==0?'first':'')">
+											<div :class="'hot-title '+(it2.isNews?'':'no-')+'icon-new'">
+												<a :href="it2.url!=''?it2.url:'javascript:;'" :target="it2.url!=''?'_blank':'_self'">{{it2.title}}</a>
+											</div>
+											<ul v-if="it2.subs" class="hot-list">
+												<template v-for="it3 in it2.subs" >	
+												<li v-if="it3.title && it3.pic">
+													<a :href="it3.url!=''?it3.url:'javascript:;'" :target="it3.url!=''?'_blank':'_self'">
+													<img :src="it3.pic">
+													<span>{{it3.title}}</span>
+													</a>
+												</li>
+												</template>
+											</ul>
+										</div>
+										<div v-else :class="'sub-nav-item '+(idx2==0?'first':'')">
+											<div class="cate-title">
+												<a :href="it2.url!=''?it2.url:'javascript:;'" :target="it2.url!=''?'_blank':'_self'">{{it2.title}}</a>
+											</div>
+											<div class="cate-box clearfix">
+												<ul v-if="it2.subs" class="cate-list fl">
+													<template v-for="it3 in it2.subs" >	
+														<li v-if="it3.url && it3.title"><a :href="it3.url" target="_blank">{{it3.title}}</a></li>
+													</template>
+												</ul>
+												<ul v-if="it2.subs2" class="cate-list fl">
+													<template v-for="it3 in it2.subs2" >	
+														<li v-if="it3.url && it3.title"><a :href="it3.url" target="_blank">{{it3.title}}</a></li>
+													</template>
+												</ul>
+											</div>
+										</div>										
+									</template>
+								</div>
+							</div>
+						</div>
+					</li>
+				</template>
+				<li class="nav-item last">
+					<div class="nav-search-box">
+						<a class="nav-search-btn" href="javascript:;" @click="searchWords" title="搜索"></a>
+						<input class="nav-search-input" type="text" v-model="keyword" :placeholder="placeholder" @keyup.enter="searchWords" autocomplete="off" value id="search_box" promptvalue="" >
+					</div>
+				</li>
+			</ul>
+		</div>
+	</header>
+	<div class="main-container J_minicart_close">
+		<div class="page-container">
+			<div class="main">
+				<div class="error-container w-full clearfix"  style="min-height: 338px;margin-top:30px;">
+					<div class="error-img">
+						<img src="https://img.fishfay.com/theme/images/antacn/login/404.gif">
+					</div>
+					<div class="error-msg error-msg-404">
+						<div class="system-message">
+							<p class="error">404</p>
+							<p class="detail">页面找不到啦~</p>
+							<p class="jump"><a id="href" href="/">返回首页</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<footer id="mall_footer" :class="'footer '+(hostType=='com'?'footer-com':'footer-cn')+' w-full J_minicart_close'" v-clock>
+		<div class="ft-inner w-1280 clearfix">
+			<div class="ft-slogan fl"><img src="https://img.fishfay.com/theme/images/logo/slogan-anta-r.svg" alt=""></div>
+			<div v-if="hostType=='com'" class="ft-main fr">
+				<ul class="links-line">
+					<li><a href="/english/aboutanta" target="_blank">安踏海外</a></li>
+					<li><a href="http://ir.anta.com/" target="_blank">安踏投资者关系</a></li>
+					<li><a href="http://esg.anta.com" target="_blank">安踏可持续发展</a></li>
+				</ul>
+				<div class="ft-company" style="height:auto">
+					<span v-if="copyright">{{copyright.en}}</span>
+					<span v-if="copyright">{{copyright.zh}}</span>
+					<a v-if="busLicense && busLicense.name" target="_blank" :href="busLicense.link">{{busLicense.name}}</a>
+					<a v-if="openPermit && openPermit.name" target="_blank" :href="openPermit.link">{{openPermit.name}}</a>
+					<br>
+					<a v-if="icp && icp.name" target="_blank" :href="icp.link">{{icp.name}}</a>
+					<a v-if="safe && safe.name" target="_blank" :href="safe.link">{{safe.name}}</a>
+				</div>
+				<ul class="links-line">
+					<li><a href="/antakids/introduction" target="_blank">安踏儿童</a></li>
+					<li><a href="http://www.fila.cn/" target="_blank">Fila</a></li>
+					<li><a href="https://www.kolonsport.com.cn/" target="_blank">Kolon Sport</a></li>
+					<li><a href="https://www.descente-china.com.cn/" target="_blank">Descente</a></li>
+					<li><a href="javascript:;">Sprandi</a></li>
+				</ul>
+			</div>
+			<div v-else class="ft-main fr clearfix">
+				<div class="custom-service first fl">
+					<h4 class="server-btn" @click="openkefu">在线客服<span class="server-icon"></span></h4>
+					<h4>在线咨询<span class="server-tel">400-858-2020</span></h4>					
+				</div>
+				<div class="custom-service fl">
+					<a class="weixin-code" href="javascript:;"></a>
+				</div>
+				<div class="ft-company fl" style="height:auto">
+					<span v-if="copyright">{{copyright.en}}</span>
+					<span v-if="copyright">{{copyright.zh}}</span>
+					<a v-if="busLicense && busLicense.name" target="_blank" :href="busLicense.link">{{busLicense.name}}</a>
+					<a v-if="openPermit && openPermit.name" target="_blank" :href="openPermit.link">{{openPermit.name}}</a>
+					<a href="javascript:showAgreement('', 'footer')">个人信息保护政策</a>
+					<a href="javascript:showAgreement('anta_official_rules', 'footer')">安踏官方商城使用规则</a>
+					<br>
+					<a v-if="icp && icp.name" target="_blank" :href="icp.link">{{icp.name}}</a>
+					<a v-if="safe && safe.name" target="_blank" :href="safe.link">{{safe.name}}</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div id="web-cover" class="web-covers J_minicart_close" v-clock>
+		<div class="cover-top goto-top" @click="gotoTop" title="返回顶部"></div>
+		<a class="cover-cart" :href="url.path_tcart" title="购物车"></a>
+		<a class="cover-kefu" href="javascript:;" @click="openkefu" title="在线客服"></a>
+	</div>
+	<script type="text/javascript">
+	try {
+		if (self != top&&top.location.href==self.location.href){
+			top.location=this.location.href;
+		}
+	}catch (e) {}
+	var _ozuid = '';
+	var _hmt = _hmt || [];
+	if(location.host=='www.anta.com'){
+		var hmkey='3f1c198435ca184800af888ebe1a0dc3';
+	}else{
+		var hmkey='da161d8f61f938ec4aaa98a3a7075e6d'
+	}
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "//hm.baidu.com/hm.js?"+hmkey;
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/vue.min.js"></script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/passport.agreement.js?v1697103945464"></script>
+<script type="text/javascript" defer src="https://img.fishfay.com/theme/pc/scripts/mall.common_v20260401.js?v1775718476574"></script>
+
+</body>
+</html>

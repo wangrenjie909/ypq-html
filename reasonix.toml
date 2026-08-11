@@ -1,0 +1,2 @@
+[permissions]
+allow = ["Bash=gh --version 2>&1; echo \"---\"; gh auth status 2>&1 | head -20"]
