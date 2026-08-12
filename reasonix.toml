@@ -1,2 +1,2 @@
 [permissions]
-allow = ["Bash=gh --version 2>&1; echo \"---\"; gh auth status 2>&1 | head -20"]
+allow = ["Bash=gh --version 2>&1; echo \"---\"; gh auth status 2>&1 | head -20", "Bash=cd /e/y\\ pq-html && for f in index.html anta_home.html j_cavs.html j_celtics.html j_mavs.html j_nets.html jd.html kai_test1.html kai_test2.html; do echo \"=== $f ===\"; grep -oE '(src|href)=\"[^\"]*\"' \"$f\" | grep -vE '^(src|href)=\"https?://|^[^=]*=\"(#|javascript)' | sort -u | head -30; done"]
