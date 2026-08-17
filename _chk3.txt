@@ -1,0 +1,17 @@
+ddzRender();
+    }
+    function ddzInfo(t) { document.getElementById("ddz-info").textContent = t; }
+    function ddzRender() {
+        document.getElementById("ddz-computer").textContent = "🖥️ 电脑：" + "🂠".repeat(ddzComputer.length) + "（" + ddzComputer.length + "张）";
+        const pArea = document.getElementById("ddz-player");
+        pArea.innerHTML = "";
+        ddzPlayer.forEach(function (c, i) {
+            const el = document.createElement("span");
+            el.className = "ddz-card";
+            el.textContent = c.s + c.r;
+            el.dataset.idx = i;
+            el.onclick = function () { el.classList.toggle("selected"); };
+            pArea.appendChild(el);
+        });
+    }
+    

@@ -1,0 +1,42 @@
+function shootLaunch(pos) {
+        if (sBall.flying || !sTarget) return;
+        const dx = sTarget.x - sBall.x;
+        const dy = sTarget.y - sBall.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 10) return;
+        const speed = 10;
+        sBall.vx = (dx / dist) * speed;
+        sBall.vy = (dy / dist) * speed;
+        sBall.flying = true;
+        sBall.scored = false;
+    }
+    shootCv.addEventListener("mousemove", function (e) {
+        sTarget = shootGetPos(e);
+    });
+    shootCv.addEventListener("mousedown", function (e) {
+        sTarget = shootGetPos(e);
+        shootLaunch(sTarget);
+    });
+    shootCv.addEventListener("touchmove", function (e) {
+        const t = e.touches[0];
+        const rect = shootCv.getBoundingClientRect();
+        sTarget = {
+            x: (t.clientX - rect.left) * (shootCv.width / rect.width),
+            y: (t.clientY - rect.top) * (shootCv.height / rect.height)
+        };
+        e.preventDefault();
+    });
+    shootCv.addEventListener("touchstart", function (e) {
+        const t = e.touches[0];
+        const rect = shootCv.getBoundingClientRect();
+        sTarget = {
+            x: (t.clientX - rect.left) * (shootCv.width / rect.width),
+            y: (t.clientY - rect.top) * (shootCv.height / rect.height)
+        };
+        e.preventDefault();
+    });
+    shootCv.addEventListener("touchend", function (e) {
+        shootLaunch(sTarget);
+    });
+    shootLoop();
+    
