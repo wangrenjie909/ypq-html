@@ -167,6 +167,18 @@
             color: #1e3a8a;
             transform: rotateY(180deg);
         }
+        .emoji-pick {
+            display: inline-block;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 3px 6px;
+            border-radius: 8px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .emoji-pick:hover {
+            transform: scale(1.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
         h1:hover {
             transform: rotate(5deg);
         }
@@ -601,6 +613,10 @@
         <p>🏀 欧文1992年出生在澳大利亚墨尔本，爸爸德雷德里克曾是NBA球员。4岁那年妈妈离世，爸爸一个人把他带大，用篮球教他坚强。</p>
         <p>⛹️ 他从小泡在球场，练就了"人球合一"的华丽运球。2011年以状元身份进入骑士，2016年总决赛抢七大战，他投中那记制胜三分，帮骑士拿下队史首冠！</p>
         <p>👟 后来他签约安踏，有了自己的KAI签名鞋。他说："我是自己的缪斯"——不追随别人，只做自己。</p>
+        <p>🎬 你知道吗？欧文还演过电影《德鲁大叔》——化妆成白发老爷爷上场暴扣，超搞笑超燃！</p>
+        <p style="margin: 12px 0 0; text-align: center;">
+            <a class="portal" href="https://v.qq.com/x/cover/p9vr540o43ctp68.html" target="_blank">🎬 点我播放《德鲁大叔》</a>
+        </p>
     </div>
     <p>👟 欧文代言：<img src="images/anta-logo.svg" alt="安踏" width="120" style="vertical-align: middle;"></p>
     <p>🏀 欧文效力过的球队：骑士 → 凯尔特人 → 篮网 → 独行侠</p>
@@ -790,6 +806,16 @@
             <option>🤝 合作邀请</option>
             <option>💬 随便聊聊</option>
         </select></p>
+        <p style="margin: 5px 0; font-size: 14px;">点表情插入留言：</p>
+        <p style="margin: 2px 0 6px;">
+            <span class="emoji-pick" onclick="addEmoji('🏀')">🏀</span>
+            <span class="emoji-pick" onclick="addEmoji('⛹️')">⛹️</span>
+            <span class="emoji-pick" onclick="addEmoji('🔥')">🔥</span>
+            <span class="emoji-pick" onclick="addEmoji('💪')">💪</span>
+            <span class="emoji-pick" onclick="addEmoji('🏆')">🏆</span>
+            <span class="emoji-pick" onclick="addEmoji('❤️')">❤️</span>
+            <span class="emoji-pick" onclick="addEmoji('😄')">😄</span>
+        </p>
         <p><textarea id="msg" placeholder="想对我说的话…" required rows="4" maxlength="100" oninput="countWords()" style="width: 100%; padding: 10px; border-radius: 10px; border: none; font-size: 15px; resize: vertical; box-sizing: border-box;"></textarea></p>
         <p id="wordCount" style="font-size: 13px; opacity: 0.8; margin-top: -5px;">已输入 0 / 100 字</p>
         <p><button type="submit" class="portal">📨 发送留言</button></p>
@@ -910,6 +936,11 @@
     function countWords() {
         const len = document.getElementById("msg").value.length;
         document.getElementById("wordCount").textContent = "已输入 " + len + " / 100 字";
+    }
+    function addEmoji(e) {
+        const ta = document.getElementById("msg");
+        ta.value += e;
+        countWords();
     }
     window.onscroll = function () {
         const btn = document.getElementById("backTop");
