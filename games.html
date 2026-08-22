@@ -520,7 +520,7 @@
 </head>
 <body style="text-align: center;">
     <div style="padding: 15px 10px;">
-        <h1>🎮 热血篮球游戏厅</h1>
+        <h1>🎮 热血篮球游戏厅 <span style="font-size: 14px; color: #7bed9f;">v3</span></h1>
         <p>全部游戏都在这里，玩个痛快！</p>
         <a href="index.html" class="portal">🏠 返回主页</a>
     </div>
@@ -593,6 +593,13 @@
         <p id="shot-result" style="font-size: 30px; font-weight: bold;">点按钮开始投篮！🏀</p>
         <p style="font-size: 18px;">得分：<span id="score">0</span> ｜ 出手：<span id="shots">0</span> ｜ 命中率：<span id="rate">0%</span></p>
         <button onclick="shoot()" class="portal game-btn">🏀 投篮！</button>
+    </div>
+    <div class="game-box">
+        <h3>🐍 贪吃蛇（全屏）</h3>
+        <p style="font-size: 15px;">方向键/WASD 控制吃🍎，越长越快，撞墙结束！</p>
+        <canvas id="snakeCanvas" width="600" height="400" style="width: 100%; height: auto; background: #0d1b2a; border-radius: 12px; display: block; margin: 0 auto;"></canvas>
+        <p style="font-size: 18px; font-weight: bold;">得分：<span id="snakeScore">0</span> 🍎 <span id="snakeMsg" style="color: #7bed9f;"></span></p>
+        <p><button onclick="snakeStart()" class="portal game-btn">重新开始</button></p>
     </div>
 
 <script>
@@ -2053,6 +2060,106 @@ dgStart();
 dgLoop();
 showQuiz();
 shuffleQuiz(quiz);
+const scCv = document.getElementById("snakeCanvas");
+const scCtx = scCv.getContext("2d");
+const GRID = 20;
+let snake = [];
+let sDir = { x: 1, y: 0 };
+let sNext = { x: 1, y: 0 };
+let sFood = null;
+let sScore = 0;
+let sRun = false;
+let sSpeed = 160;
+let sTimer = null;
+function snakeStart() {
+    snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+    sDir = { x: 1, y: 0 };
+    sNext = { x: 1, y: 0 };
+    sScore = 0;
+    sRun = true;
+    sSpeed = 160;
+    document.getElementById("snakeScore").textContent = 0;
+    document.getElementById("snakeMsg").textContent = "开始！吃苹果！";
+    snakeFood();
+    if (sTimer) clearTimeout(sTimer);
+    snakeTick();
+}
+function snakeFood() {
+    do {
+        sFood = { x: Math.floor(Math.random() * GRID), y: Math.floor(Math.random() * GRID) };
+    } while (snake.some(function (s) { return s.x === sFood.x && s.y === sFood.y; }));
+}
+function snakeTick() {
+    if (!sRun) return;
+    const head = { x: snake[0].x + sNext.x, y: snake[0].y + sNext.y };
+    sDir = { x: sNext.x, y: sNext.y };
+    if (head.x < 0 || head.y < 0 || head.x >= GRID || head.y >= GRID ||
+        snake.some(function (s) { return s.x === head.x && s.y === head.y; })) {
+        sRun = false;
+        document.getElementById("snakeMsg").textContent = "💀 撞了！得分 " + sScore + "，点重新开始";
+        snakeDraw();
+        return;
+    }
+    snake.unshift(head);
+    if (head.x === sFood.x && head.y === sFood.y) {
+        sScore++;
+        document.getElementById("snakeScore").textContent = sScore;
+        sSpeed = Math.max(70, sSpeed - 5);
+        snakeFood();
+    } else {
+        snake.pop();
+    }
+    snakeDraw();
+    sTimer = setTimeout(snakeTick, sSpeed);
+}
+function snakeDraw() {
+    const cell = scCv.width / GRID;
+    scCtx.clearRect(0, 0, scCv.width, scCv.height);
+    scCtx.strokeStyle = "rgba(255,255,255,0.08)";
+    for (let i = 1; i < GRID; i++) {
+        scCtx.beginPath();
+        scCtx.moveTo(i * cell, 0);
+        scCtx.lineTo(i * cell, scCv.height);
+        scCtx.stroke();
+        scCtx.beginPath();
+        scCtx.moveTo(0, i * cell);
+        scCtx.lineTo(scCv.width, i * cell);
+        scCtx.stroke();
+    }
+    scCtx.fillStyle = "#ff5252";
+    scCtx.beginPath();
+    scCtx.arc(sFood.x * cell + cell / 2, sFood.y * cell + cell / 2, cell / 3, 0, Math.PI * 2);
+    scCtx.fill();
+    snake.forEach(function (s, i) {
+        scCtx.fillStyle = i === 0 ? "#7bed9f" : "#27ae60";
+        scCtx.fillRect(s.x * cell + 1, s.y * cell + 1, cell - 2, cell - 2);
+    });
+}
+document.addEventListener("keydown", function (e) {
+    const k = e.key.toLowerCase();
+    if (k === "arrowup" || k === "w") {
+        if (sDir.y !== 1) sNext = { x: 0, y: -1 };
+    } else if (k === "arrowdown" || k === "s") {
+        if (sDir.y !== -1) sNext = { x: 0, y: 1 };
+    } else if (k === "arrowleft" || k === "a") {
+        if (sDir.x !== 1) sNext = { x: -1, y: 0 };
+    } else if (k === "arrowright" || k === "d") {
+        if (sDir.x !== -1) sNext = { x: 1, y: 0 };
+    }
+});
+ else {
+        scCv.style.position = "";
+        scCv.style.width = "100%";
+        scCv.style.height = "auto";
+        scCv.style.zIndex = "";
+        scCv.style.borderRadius = "12px";
+        scCv.width = 600;
+        scCv.height = 400;
+        document.getElementById("snakeMsg").textContent = "已退出全屏";
+    }
+    snakeDraw();
+}
+snakeStart();
 </script>
 </body>
 </html>

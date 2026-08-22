@@ -726,83 +726,9 @@
     <div class="game-box" style="border: 3px solid #ffd700; max-width: 460px;">
         <p style="font-size: 40px; margin: 4px 0;">🎮</p>
         <h3>游戏厅</h3>
-        <p style="font-size: 16px;">斗地主、带球过人、猜数字、翻牌、石头剪刀布、投篮、1000题问答……全部游戏都在这里！</p>
+        <p style="font-size: 16px;">斗地主、带球过人、猜数字、翻牌、石头剪刀布、投篮、1000题问答、贪吃蛇——全部游戏都在这里！</p>
         <p style="margin-top: 12px;"><a href="games.html" class="portal game-btn" style="text-decoration: none;">🕹️ 点我进入游戏厅</a></p>
     </div>
-    <section id="contact">
-    <h3>📮 联系我</h3>
-    <form onsubmit="sendMessage(event)" style="max-width: 460px; margin: 0 auto;">
-        <p><input id="name" placeholder="你的名字" required style="width: 100%; padding: 10px; border-radius: 10px; border: none; font-size: 15px; box-sizing: border-box;"></p>
-        <p><input id="email" type="email" placeholder="你的邮箱（选填）" style="width: 100%; padding: 10px; border-radius: 10px; border: none; font-size: 15px; box-sizing: border-box;"></p>
-        <p><select id="topic" style="width: 100%; padding: 10px; border-radius: 10px; border: none; font-size: 15px; box-sizing: border-box;">
-            <option value="">选择主题…</option>
-            <option>🏀 聊聊篮球</option>
-            <option>👟 球鞋交流</option>
-            <option>🤝 合作邀请</option>
-            <option>💬 随便聊聊</option>
-        </select></p>
-        <p style="margin: 5px 0; font-size: 14px;">点表情插入留言：</p>
-        <p style="margin: 2px 0 6px;">
-            <span class="emoji-pick" onclick="addEmoji('🏀')">🏀</span>
-            <span class="emoji-pick" onclick="addEmoji('⛹️')">⛹️</span>
-            <span class="emoji-pick" onclick="addEmoji('🔥')">🔥</span>
-            <span class="emoji-pick" onclick="addEmoji('💪')">💪</span>
-            <span class="emoji-pick" onclick="addEmoji('🏆')">🏆</span>
-            <span class="emoji-pick" onclick="addEmoji('❤️')">❤️</span>
-            <span class="emoji-pick" onclick="addEmoji('😄')">😄</span>
-        </p>
-        <p><textarea id="msg" placeholder="想对我说的话…" required rows="4" maxlength="100" oninput="countWords()" style="width: 100%; padding: 10px; border-radius: 10px; border: none; font-size: 15px; resize: vertical; box-sizing: border-box;"></textarea></p>
-        <p id="wordCount" style="font-size: 13px; opacity: 0.8; margin-top: -5px;">已输入 0 / 100 字</p>
-        <p><button type="submit" class="portal">📨 发送留言</button></p>
-        <div id="formError" style="display: none; color: #ff6b6b; font-size: 15px; font-weight: bold;"></div>
-        <div id="formSuccess" style="display: none; background: rgba(90, 200, 120, 0.35); border: 2px solid #7bed9f; color: #7bed9f; border-radius: 12px; padding: 14px; font-size: 17px; font-weight: bold; animation: pop 0.4s ease;"></div>
-    </form>
-    <p style="margin-top: 15px;">🔗 找到我：</p>
-    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <a href="#" class="badge">📱 微信</a>
-        <a href="#" class="badge">💬 QQ</a>
-        <a href="#" class="badge">🌐 微博</a>
-        <a href="#" class="badge">▶️ B站</a>
-    </div>
-    </section>
-    <section id="works">
-    <h3>🖼️ 我的作品集</h3>
-    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-        <div class="shoe-card" style="width: 170px;">
-            <p style="font-size: 40px; margin: 6px 0;">🏀</p>
-            <p>热血篮球网站</p>
-        </div>
-        <div class="shoe-card" style="width: 170px;">
-            <p style="font-size: 40px; margin: 6px 0;">👟</p>
-            <p>KAI 球鞋收藏</p>
-        </div>
-        <div class="shoe-card" style="width: 170px;">
-            <p style="font-size: 40px; margin: 6px 0;">🎽</p>
-            <p>球衣图鉴</p>
-        </div>
-        <div class="shoe-card" style="width: 170px;">
-            <p style="font-size: 40px; margin: 6px 0;">⛹️</p>
-            <p>球星卡合集</p>
-        </div>
-    </div>
-    </section>
-    <button class="back-top" id="backTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
-    <div class="game-box" style="border: 3px solid #ffd700; max-width: 520px;">
-        <p style="font-size: 28px; margin: 4px 0;">🎓</p>
-        <h3 style="margin: 4px 0;">网页创作者证书</h3>
-        <p style="font-size: 16px;">兹证明《热血篮球》网站的创作者已学会：</p>
-        <div class="skills" style="justify-content: center;">
-            <span class="badge">🧱 HTML</span>
-            <span class="badge">🎨 CSS</span>
-            <span class="badge">📐 Flexbox</span>
-            <span class="badge">⚡ JavaScript</span>
-        </div>
-        <p style="font-size: 15px; margin-top: 12px;">🏆 特此颁发 · 你就是最棒的创作者！</p>
-    </div>
-<footer style="margin-top: 40px; padding: 20px; opacity: 0.85; border-top: 1px solid rgba(255,255,255,0.2);">
-        <p>© 2026 热血篮球 · 由我亲手打造 🏀</p>
-        <p>⛹️ 永不止步 · 汗水不会说谎 💦</p>
-    </footer>
 <script>
     const bgs = [
         "linear-gradient(to bottom, #1e3a8a, #0b1e4e)",
@@ -974,6 +900,7 @@
         document.removeEventListener("keydown", onceKey);
     });
     
+
 </script>
 </body>
 </html>
